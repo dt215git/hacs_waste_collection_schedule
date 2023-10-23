@@ -2,14 +2,18 @@ import datetime
 
 import requests
 from bs4 import BeautifulSoup
-from waste_collection_schedule import Collection
+from waste_collection_schedule import Collection  # type: ignore[attr-defined]
 
 TITLE = "Mairie de Mamirolle"
 DESCRIPTION = "Source script for mamirolle.info"
 COUNTRY = "fr"
 URL = "http://mamirolle.info/"
 
-TEST_CASES = {"TestSource": {}}
+TEST_CASES = {
+    "TestSource_1": {"_": ""},
+    "TestSource_2": {"_": "qwerty"},
+    "TestSource_3": {},
+}
 
 ICON_MAP = {
     "Poubelle grise": "mdi:trash-can",
@@ -33,6 +37,9 @@ MONTH_NAMES = [
 
 
 class Source:
+    def __init__(self, _=None):
+        self._ = None
+
     def fetch(self):
         now = datetime.datetime.now()
         # get list of regions and weblinks
