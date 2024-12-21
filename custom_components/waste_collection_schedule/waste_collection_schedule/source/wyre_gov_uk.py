@@ -29,14 +29,19 @@ class Source:
             "https://www.wyre.gov.uk/bincollections", params={"uprn": self._uprn}
         )
         soup = BeautifulSoup(response.text, "html.parser")
+        # print(response.text)
 
         entries = []
 
         bins = soup.find_all("h3", class_="bin-collection-tasks__heading")
         dates = soup.find_all("p", class_="bin-collection-tasks__date")
+        print(bins)
+        print(dates)
+
         for date_tag, bin_tag in zip(dates, bins):
             bint = " ".join(bin_tag.text.split()[2:4])
             date = parser.parse(date_tag.text).date()
+            print(bint, date)
 
             entries.append(
                 Collection(
